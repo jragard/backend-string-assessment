@@ -18,8 +18,13 @@
 
 
 def verbing(s):
-    """Your code goes here.  Edit this docstring."""
-    return
+    """Appends -ing or -ly under certain conditions"""
+    if len(s) >= 3:
+        if s[-3:] != 'ing':
+            s = s + 'ing'
+        else:
+            s = s + 'ly'
+    return s
 
 
 # E. not_bad
@@ -31,8 +36,12 @@ def verbing(s):
 # So 'This dinner is not that bad!' yields:
 # This dinner is good!
 def not_bad(s):
-    """Your code goes here.  Edit this docstring."""
-    return
+    """converts 'not bad' to 'good'"""
+    n = s.find('not')
+    b = s.find('bad')
+    if n != -1 and b != -1 and b > n:
+        s = s[:n] + 'good' + s[b+3:]
+    return s
 
 
 # F. front_back
@@ -43,14 +52,27 @@ def not_bad(s):
 # Given 2 strings, a and b, return a string of the form
 #  a-front + b-front + a-back + b-back
 def front_back(a, b):
-    """Your code goes here.  Edit this docstring."""
-    return
+    """Combines fronts & backs of a and b"""
+    # Compute midpoints of both strings.
+    # Question:  Why do we use the `//` type of division
+    # here instead of just `/` ?  Hint: Python2 vs Python3
+    a_middle = len(a) // 2
+    b_middle = len(b) // 2
+    # test a for odd length
+    if len(a) % 2:
+        # add 1 to midpoint if length is odd
+        a_middle = a_middle + 1
+    # test b for odd length
+    if len(b) % 2:
+        # add 1 to midpoint if length is odd
+        b_middle = b_middle + 1
+    return a[:a_middle] + b[:b_middle] + a[a_middle:] + b[b_middle:]
 
 
 # Provided simple test() function used in main() to print
 # what each function returns vs. what it's supposed to return.
 def test(got, expected):
-    """Your code goes here.  Edit this docstring."""
+    """Test harness"""
     if got == expected:
         prefix = ' OK '
     else:
@@ -61,20 +83,18 @@ def test(got, expected):
 # main() calls the above functions with interesting inputs,
 # using the above test() to check if the result is correct or not.
 def main():
-    """Your code goes here.  Edit this docstring."""
+    """Manual test case runner"""
     print('verbing')
     test(verbing('hail'), 'hailing')
     test(verbing('swiming'), 'swimingly')
     test(verbing('do'), 'do')
 
-    print()
     print('not_bad')
     test(not_bad('This movie is not so bad'), 'This movie is good')
     test(not_bad('This dinner is not that bad!'), 'This dinner is good!')
     test(not_bad('This tea is not hot'), 'This tea is not hot')
     test(not_bad("It's bad yet not"), "It's bad yet not")
 
-    print()
     print('front_back')
     test(front_back('abcd', 'xy'), 'abxcdy')
     test(front_back('abcde', 'xyz'), 'abcxydez')

@@ -24,8 +24,11 @@
 # So donuts(5) returns 'Number of donuts: 5'
 # and donuts(23) returns 'Number of donuts: many'
 def donuts(count):
-    """Your code goes here.  Edit this docstring."""
-    return
+    """Donut Counter .. apparently 10 is too many."""
+    if count < 10:
+        return 'Number of donuts: ' + str(count)
+    else:
+        return 'Number of donuts: many'
 
 
 # B. both_ends
@@ -34,8 +37,12 @@ def donuts(count):
 # so 'spring' yields 'spng'. However, if the string length
 # is less than 2, return instead the empty string.
 def both_ends(s):
-    """Your code goes here.  Edit this docstring."""
-    return
+    """Returns first 2 and last 2 chars if string is longer than 2 chars."""
+    if len(s) < 2:
+        return ''
+    first2 = s[0:2]
+    last2 = s[-2:]
+    return first2 + last2
 
 
 # C. fix_start
@@ -48,8 +55,11 @@ def both_ends(s):
 # Hint: s.replace(stra, strb) returns a version of string s
 # where all instances of stra have been replaced by strb.
 def fix_start(s):
-    """Your code goes here.  Edit this docstring."""
-    return
+    """Replaces remainder of occurences of first char with '*' """
+    front = s[0]
+    back = s[1:]
+    fixed_back = back.replace(front, '*')
+    return front + fixed_back
 
 
 # D. MixUp
@@ -60,14 +70,16 @@ def fix_start(s):
 #   'dog', 'dinner' -> 'dig donner'
 # Assume a and b are length 2 or more.
 def mix_up(a, b):
-    """Your code goes here.  Edit this docstring."""
-    return
+    """Separates and swaps, all in one!"""
+    a_swapped = b[:2] + a[2:]
+    b_swapped = a[:2] + b[2:]
+    return a_swapped + ' ' + b_swapped
 
 
 # Provided simple test() function used in main() to print
 # what each function returns vs. what it's supposed to return.
 def test(got, expected):
-    """Your code goes here.  Edit this docstring."""
+    """Test harness"""
     if got == expected:
         prefix = ' OK '
     else:
@@ -78,7 +90,7 @@ def test(got, expected):
 # Provided main() calls the above functions with interesting inputs,
 # using test() to check if each result is correct or not.
 def main():
-    """Your code goes here.  Edit this docstring."""
+    """Manual test case runner"""
     print('donuts')
     # Each line calls donuts, compares its result to the expected for that call.
     test(donuts(4), 'Number of donuts: 4')
@@ -86,21 +98,18 @@ def main():
     test(donuts(10), 'Number of donuts: many')
     test(donuts(99), 'Number of donuts: many')
 
-    print()
     print('both_ends')
     test(both_ends('spring'), 'spng')
     test(both_ends('Hello'), 'Helo')
     test(both_ends('a'), '')
     test(both_ends('xyz'), 'xyyz')
 
-    print()
     print('fix_start')
     test(fix_start('babble'), 'ba**le')
     test(fix_start('aardvark'), 'a*rdv*rk')
     test(fix_start('google'), 'goo*le')
     test(fix_start('donut'), 'donut')
 
-    print()
     print('mix_up')
     test(mix_up('mix', 'pod'), 'pox mid')
     test(mix_up('dog', 'dinner'), 'dig donner')
